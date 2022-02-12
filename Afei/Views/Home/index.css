@@ -51,7 +51,24 @@
     text-decoration: underline;
     cursor: pointer;
 }
-
+.aimg {
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    filter: drop-shadow(white 80px 0);
+    transform: translateX(-80px);
+}
+.aimg.qq{
+    background-image:url(../../Content/imgs/QQ.png)
+}
+.aimg.github{
+    background-image:url(../../Content/imgs/github.png)
+}
+.aimg.bilibili{
+    background-image:url(../../Content/imgs/bilibili.png)
+}
 .menustate {
     background-color: gray;
     color: white;

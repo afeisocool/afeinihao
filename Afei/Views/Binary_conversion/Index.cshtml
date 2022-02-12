@@ -2,6 +2,7 @@
 @{
     Layout = null;
 }
+@using AfeiLib;
 
 <!DOCTYPE html>
 
@@ -9,9 +10,16 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    @Scripts.Render("~/Scripts/js")
+    @Styles.Render("~/Content/css")
+    @Html.IncludeScriptAndStyle()
 </head>
-<body>
-    <div> 
+<body id="body">
+    <div class="btnbox">
+        <div class="btnnm">输入</div>
+    </div>
+    <div class="btnbox">
+        <input type="text" class="btninput" />
     </div>
 </body>
 </html>

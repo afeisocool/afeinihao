@@ -155,6 +155,8 @@
     <Content Include="Content\icon-ext.png" />
     <Content Include="Content\icon.png" />
     <Content Include="Content\imgs\bgimg.jpg" />
+    <Content Include="Content\imgs\bilibili.png" />
+    <Content Include="Content\imgs\github.png" />
     <Content Include="Content\imgs\icon_advanced_calculator.png" />
     <Content Include="Content\imgs\icon_airdrop.png" />
     <Content Include="Content\imgs\icon_binary_conversion.png" />
@@ -166,6 +168,7 @@
     <Content Include="Content\imgs\logo.png" />
     <Content Include="Content\imgs\none.png" />
     <Content Include="Content\imgs\null.png" />
+    <Content Include="Content\imgs\QQ.png" />
     <Content Include="Content\imgs\transparent.png" />
     <Content Include="Content\imgs\upimg.png" />
     <Content Include="Content\layer-min.css" />

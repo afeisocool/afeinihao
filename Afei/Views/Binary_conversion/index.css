@@ -1,4 +1,40 @@
-﻿
+﻿.btnbox{
+    height:30px;
+    width:calc(100% - 10px);
+    margin:5px;
+    background-color:rgba(0,0,0,0.2);
+    display:flex;
+    font-size:12px;
+}
+.btnnm,
+.btnbtn,
+.btndesc
+{
+    flex-basis:80px;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+.btnnm {
+    background-color: #3498db;
+}
+.btnbtn {
+    background-color: #1abc9c;
+    cursor: pointer;
+    border-radius: 7px;
+}
+.btndesc {
+    background-color: #2980b9;
+}
+.btninput {
+    outline: 1px solid lightgray;
+    height: calc(100% - 2px);
+    flex: 1;
+    text-indent: 12px;
+    background-color: transparent;
+}
 
 
 
