@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = null;
+}
+@using AfeiLib;
+
+<!DOCTYPE html>
+
+<html ng-app="app" ng-controller="app">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>工具人阿飞</title>
+    @Scripts.Render("~/Scripts/js")
+    @Styles.Render("~/Content/css")
+    @Html.IncludeScriptAndStyle()
+</head>
+<body>
+    <div id="body">
+        <div class="logbox" ng-repeat="item in logs">
+            <div class="shorts-log">
+                <span class="shortstate{{item.shortstate}}">{{item.shorts}}</span>
+            </div>
+            <div class="line-log">{{item.time}}</div>
+            <div class="descs-log descsstate{{item.descsstate}}">{{item.descs}}</div>
+        </div>
+    </div>
+</body>
+</html>

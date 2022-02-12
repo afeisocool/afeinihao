@@ -1,0 +1,68 @@
+﻿
+@{
+    Layout = null;
+}
+@using AfeiLib;
+
+<!DOCTYPE html>
+
+<html ng-app="app" ng-controller="app">
+<head>
+    <title>工具人阿飞</title>
+    @Scripts.Render("~/Scripts/js")
+    @Styles.Render("~/Content/css")
+    @Html.IncludeScriptAndStyle()
+</head>
+<body>
+    <div id="body">
+        <div id="imgs">
+            <img ng-src="{{src}}" id="img" class="{{file!=null?'no':''}}" title="图片拖拽至此也可以上传" />
+            <input class="hide" id="upimg" type="file" accept="image/*" />
+        </div>
+        <div id="btnboxs">
+            <div class="btnbox">
+                <div class="btnnm">base64</div>
+            </div>
+            <div class="btnbox">
+                <input type="text" class="btninput" ng-model="base64" readonly="readonly" />
+            </div>
+            <div class="btnbox">
+                <div class="btnflex"></div>
+                <div class="btnbtn {{imgflag?'':'noclick'}}" ng-click="copy()">复制到剪贴板</div>
+            </div>
+            <div class="btnbox">
+                <div class="btnnm">压缩图片</div>
+            </div>
+            <div class="btnbox">
+                <div class="btndesc">质量(0~1)</div>
+                <input type="text" class="btninput" ng-model="quality" />
+            </div>
+            <div class="btnbox">
+                <div class="btndesc">缩放(>0)</div>
+                <input type="text" class="btninput" ng-model="zoom" />
+            </div>
+            <div class="btnbox">
+                <div class="btnflex"></div>
+                <div class="btnbtn {{imgflag?'':'noclick'}}" ng-click="getzoom()">生成并下载</div>
+            </div>
+            <div class="btnbox">
+                <div class="btnnm">生成ico</div>
+            </div>
+            <div class="btnbox">
+                <div class="btndesc">大小</div>
+                <select class="btninput" ng-model="factor">
+                    <option value='16*16'>16*16</option>
+                    <option value='32*32'>32*32</option>
+                    <option value='64*64'>64*64</option>
+                    <option value='128*128'>128*128</option>
+                    <option value='256*256'>256*256</option>
+                </select>
+            </div>
+            <div class="btnbox">
+                <div class="btnflex"></div>
+                <div class="btnbtn {{imgflag?'':'noclick'}}" ng-click="getico()">生成并下载</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

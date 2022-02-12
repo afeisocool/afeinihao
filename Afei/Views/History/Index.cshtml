@@ -1,0 +1,24 @@
+﻿
+@{
+    Layout = null;
+}
+@using AfeiLib;
+
+<!DOCTYPE html>
+
+<html ng-app="app" ng-controller="app">
+<head>
+    <title>工具人阿飞</title>
+    @Scripts.Render("~/Scripts/js")
+    @Styles.Render("~/Content/css")
+    @Html.IncludeScriptAndStyle()
+</head>
+<body>
+    <div id="body">
+        <div class="history" ng-repeat="item in historys">
+            <span class="Year">{{item.time}}</span>
+            <span class="Vals">{{item.vals}}</span>
+        </div>
+    </div>
+</body>
+</html>

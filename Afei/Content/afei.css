@@ -1,0 +1,50 @@
+*{
+    margin:0;
+    padding:0;
+    user-select:none;
+    font-size:12px;
+}
+body {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color:transparent;
+}
+#body{
+    overflow-x:hidden;
+    overflow-y:auto;
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+}
+#body::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+    background-color:transparent;
+}
+#body::-webkit-scrollbar-thumb {
+    background-color: #34495e;
+}
+
+.loadmask{
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background-repeat:no-repeat;
+    background-position:center center;
+}
+.loadmask.load-0{
+    background-image:url(../Content/loading-0.gif);
+}
+.loadmask.load-1 {
+    background-image: url(../Content/loading-1.gif);
+}
+.loadmask.load-2 {
+    background-image: url(../Content/loading-2.gif);
+}

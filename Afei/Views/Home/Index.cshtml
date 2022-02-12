@@ -1,0 +1,60 @@
+﻿
+@{
+    Layout = null;
+}
+@using AfeiLib;
+
+<!DOCTYPE html>
+
+<html ng-app="app" ng-controller="app">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>工具人阿飞</title>
+    @Scripts.Render("~/Scripts/js")
+    @Styles.Render("~/Content/css")
+    @Html.IncludeScriptAndStyle()
+</head>
+<body>
+    <img id="bgimg" src="~/Content/imgs/bgimg.jpg" />
+    <div id="body" class="{{viewstate}}">
+        <div id="menu">
+            <div class="menuitem {{item.check?'menucheck':''}}" ng-repeat="item in menu" ng-click="menucheck(item)">
+                <div class="menuicon {{item.iconcls}}"></div>
+                <div class="menuname">
+                    <span>{{item.name}}</span>
+                    <span class="menustate menustate{{menustate[item.state].cd}}">{{menustate[item.state].nm}}</span>
+                </div>
+                <div class="menudesc">{{item.desc}}</div>
+            </div>
+        </div>
+        <div id="view">
+            <iframe id="iframe" ng-src="{{menuitem.areaurl}}"></iframe>
+        </div>
+    </div>
+    <div id="history">
+        <div class="history" ng-repeat='item in historys'>{{item}}</div>
+    </div>
+    <div id="icp">
+        <a title="上班中，又是摸鱼的一天">©2022 工具人阿飞</a>
+        <span>丨</span>
+        <a href="https://beian.miit.gov.cn/" title="工业和信息化部域名信息备案管理系统">湘ICP备2022000917号-1</a>
+        <span>丨</span>
+        <div class="a flexcc lyf">
+            <span>帮助</span>
+            <div class="lybox">
+                <a class="atxt flexcc" title="(๑•̀ㅂ•́)و✧">皮肤</a>
+                <a class="atxt flexcc">设置</a>
+                <a class="atxt flexcc">关于</a>
+                <a class="atxt flexcc">阿飞</a>
+            </div>
+        </div>
+        <span>丨</span>
+        <div class="a flexcc lyf">
+            <span>更多</span>
+            <div class="lybox">
+                <a class="atxt flexcc" href="https://jq.qq.com/?_wv=1027&k=jURIfuY0">qq</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

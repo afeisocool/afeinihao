@@ -1,0 +1,108 @@
+﻿*{
+    /*background-color:lightgray;*/
+    color:white;
+}
+.logbox{
+    width:calc(100% - 10px);
+    margin:5px;
+    overflow:hidden;
+}
+.shorts-log{
+    width:50px;
+    float:left;
+    height:48px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:inherit;
+}
+.shorts-log>span{
+    height:24px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:5px;
+    padding:0 5px;
+}
+/*短码状态*/
+.shortstate0 {
+    background-color: #34495e;
+    color:white;
+}
+.shortstate1 {
+    background-color: #f1c40f;
+    color:white;
+}
+.shortstate2 {
+    background-color: #2ecc71;
+    color: white;
+}
+.shortstate3 {
+    background-color: #95a5a6;
+    color:white;
+}
+.shortstate4 {
+    background-color: #3498db;
+    color: white;
+}
+/*解释状态*/
+.descsstate0{
+    background-color:rgba(0,0,0,0.1)
+}
+.descsstate1 {
+    background-color: rgba(0,0,0,0.2)
+}
+.descsstate2 {
+    background-color: rgba(0,0,0,0.3)
+}
+.descsstate3 {
+    background-color: rgba(0,0,0,0.4)
+}
+
+
+.line-log {
+    width: 70px;
+    float: left;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.descs-log {
+    width: calc(100% - 120px);
+    float: left;
+    word-break:break-all;
+    line-height:48px;
+    text-indent:24px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
