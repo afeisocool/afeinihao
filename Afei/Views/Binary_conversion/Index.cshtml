@@ -6,7 +6,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html ng-app="app" ng-controller="app">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
@@ -19,7 +19,20 @@
         <div class="btnnm">输入</div>
     </div>
     <div class="btnbox">
-        <input type="text" class="btninput" />
+        <input type="text" class="btninput" ng-model="originvals" />
+    </div>
+    <div class="btnbox">
+        <div class="btndesc">源进制</div>
+        <select ng-model="origintype" class="btninput">
+            <option ng-repeat="item in typearr" value="{{item}}">{{item}}</option>
+        </select>
+    </div>
+    <div class="btnbox">
+        <div class="btninput"></div>
+        <div class="btnbtn" ng-click="tochange()">确定</div>
+    </div>
+    <div class="btnbox">
+        <div class="btndesc flex1">双击复制到剪切板</div>
     </div>
 </body>
 </html>
