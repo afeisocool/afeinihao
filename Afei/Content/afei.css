@@ -48,3 +48,36 @@ body {
 .loadmask.load-2 {
     background-image: url(../Content/loading-2.gif);
 }
+#discuss{
+    position:absolute;
+    bottom:10px;
+    top:10px;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background-color:white;
+    border:none;
+    outline:1px solid lightgray;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

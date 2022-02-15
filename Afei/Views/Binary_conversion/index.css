@@ -17,6 +17,12 @@
     align-items:center;
     color:white;
 }
+select{
+    color:white!important;
+}
+select option{
+    color:black;
+}
 .btnnm {
     background-color: #3498db;
 }
@@ -38,6 +44,7 @@
     display:flex;
     justify-content:flex-start;
     align-items:center;
+    color:white;
 }
 .flex1{
     flex:1;

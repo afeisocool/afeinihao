@@ -4,6 +4,10 @@ $afei.menustate = [
 	{cd: '1',nm: '勉强能用上了'},
 	{cd: '2',nm: 'bug影响使用'},
 ]
+$afei.discuss = function (url) {
+	var $discuss = $("<div class='discuss'></div>");
+	$discuss.appendTo($("#body"));
+}
 $.extend({
 	cps: function (item) {
 		return JSON.parse(JSON.stringify(item));

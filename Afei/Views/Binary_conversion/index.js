@@ -1,5 +1,5 @@
 ﻿angular.module('app', []).controller('app', ['$scope', '$compile', function ($scope, $compile) {
-	$scope.origintype = 0;
+	$scope.origintype = '10';
 	$scope.originvals = '123';
 	$scope.typearr = [];
 	for (var i = 2; i <= 36; i++) {
@@ -30,7 +30,7 @@
 			}
 		});
 	}
-
+	$afei.discuss('binary_conversion');
 	
 
 

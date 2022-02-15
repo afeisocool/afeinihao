@@ -25,21 +25,14 @@
 	var $load;
 	$scope.$watch('menuitem', function (n) {
 		if (n) {
-			//清空句柄并且新建句柄
-			if ($load) {
-				$load.remove()
-			}
-			$load = $.load({$dom:$("#view")});
+			
 		} else {
 
 		}
 	})
 	//监控页面加载
 	$("#iframe")[0].onload = function () {
-		//加载完成清除句柄
-		if ($load) {
-			$load.remove();
-        }
+		
 	}
 	//历史上的今天
 	gethistory();
