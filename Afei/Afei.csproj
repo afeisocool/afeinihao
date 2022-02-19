@@ -175,6 +175,7 @@
     <Content Include="Content\loading-0.gif" />
     <Content Include="Content\loading-1.gif" />
     <Content Include="Content\loading-2.gif" />
+    <Content Include="Content\up\0.hd.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />

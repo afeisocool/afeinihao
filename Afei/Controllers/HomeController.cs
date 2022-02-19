@@ -16,6 +16,61 @@ namespace Afei.Controllers
     public class HomeController : Controller
     {
         [HttpPost]
+        public string sendmsg(string field,string msg)
+        {
+            var usercd = Session["usercd"].ToString();
+            string sql = string.Format("insert into reply(field,usercd,msg)values('{0}','{1}','{2}')",field,usercd,msg);
+            ToDB.Select(sql);
+            return "发送成功".Tojson();
+        }
+        [HttpPost]
+        public string register(string usernm, string userpwd) 
+        { 
+            var entitys = ToDB.Getdblist<userEntity>(string.Format("select * from users where usercd = '{0}'",usernm));
+            if (entitys.Count==0)
+            {
+                var sql = string.Format("insert into users(usercd,userpwd,usernm)values('{0}','{1}','nm-'+'{0}')",usernm,userpwd.Md5_Encrypt());
+                var res = ToDB.Select(sql);
+                return "注册成功".Tojson();
+            }
+            else
+            {
+                return "号已存在".Tojson();
+            }
+        }
+        [HttpPost]
+        public string login(string usernm,string userpwd)
+        {
+            var entitys = ToDB.Getdblist<userEntity>(string.Format("select * from users where usercd = '{0}'",usernm));
+            var entity = entitys.Count == 0 ? null : entitys[0];
+            if (entity==null)
+            {
+                return "号不存在".Tojson();
+            }
+            else if (entity.userpwd!=userpwd.Md5_Encrypt())
+            {
+                var tp = userpwd.Md5_Encrypt();
+                return "密码错误".Tojson();
+            }
+            else
+            {
+                var ck = new loginDto() {usercd=entity.usercd,edt=DateTime.Now.AddDays(3) };
+                var tokens = ck.Tojson().Md5_Encrypt();
+                HttpCookie hk = new HttpCookie("afeitool_tokens");
+                hk.Value = tokens;
+                hk.Expires.AddDays(3);
+
+                HttpCookie hk2 = new HttpCookie("afeitool_login");
+                hk2.Value = "logining";
+                hk2.Expires.AddDays(3);
+
+                HttpContext.Response.AppendCookie(hk);
+                HttpContext.Response.AppendCookie(hk2);
+                Session["usercd"] = entity.usercd;
+                return "登录成功".Tojson();
+            }
+        }
+        [HttpPost]
         public string logincheck()
         {
             var ck = HttpContext.Request.Cookies["afeitool_tokens"] == null ? null : HttpContext.Request.Cookies["afeitool_tokens"].Value;

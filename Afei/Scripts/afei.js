@@ -5,11 +5,6 @@ $afei.menustate = [
 	{cd: '2',nm: 'bug影响使用'},
 ]
 
-$afei.logincheck = function () {
-	$afei.post('/home/logincheck').then(res => {
-		$.cookie('afeitool_login', res == 'null' ? '' : res);
-	})
-}
 $afei.tologin = function () {
 	$(".loginbox").remove();
 	var $loginbox = $("<div class='loginbox'></div>");
@@ -26,10 +21,33 @@ $afei.tologin = function () {
 	$loginpwd.appendTo($loginbox);
 	$loginbtn.appendTo($loginbox);
 	$loginregister.appendTo($loginbox);
-
 	//close
+	$loginclosespan.click(function (e) {
+		$loginbox.remove();
+		e.stopPropagation();
+	})
+	//login
+	$loginbtn.click(function (e) {
+		var usernm = $loginnm.val();
+		var userpwd = $loginpwd.val();
+		$afei.post('/home/login', { usernm: usernm, userpwd: userpwd }).then(res => {
+			layer.msg(res);
+            if (res=="登录成功") {
+				$loginclosespan.click();
+            }
+		})
 
-
+		e.stopPropagation();
+	})
+	//register
+	$loginregister.click(function (e) {
+		var usernm = $loginnm.val();
+		var userpwd = $loginpwd.val();
+		$.post('/home/register', { usernm: usernm, userpwd: userpwd }).then(res => {
+			layer.msg(res);
+		})
+		e.stopPropagation();
+	})
 }
 $afei.discuss = function (field, $scope, $compile) {
 	$scope.srtxt = '';
@@ -40,6 +58,19 @@ $afei.discuss = function (field, $scope, $compile) {
 	var $discussinput = $("<div class='discussinput'></div>");
 	var $discussinputbox = $("<input class='discussinputbox' type='text' placeholder='说些什么……' ng-model='srtxt' />");
 	var $discussbtn = $("<div class='discussbtn'>发送</div>");
+	var $msgs = $(
+		"<div class='dismsgbox' ng-repeat='item in msgs'>" +
+			"<div class='dismsghdnm'>"+
+				"<div class='dismsghn' style='background-image:url(/Content/up/{{item.userhd}})'></div>"+
+				"<div class='dismsgnm'>{{item.usernm}}</div>"+
+			"</div>"+
+			"<div class='dismsgtxts'>"+
+			"<span class='dismsgtxt'>{{item.msg}}</span>"+
+			"<span class='dismsgcrt'>{{item.crtdt}}</span>"+
+			"</div>"+
+		"</div>"
+	)
+	$msgs.appendTo($discussmsg);
 	$discussinput.appendTo($discussbox);
 	$discussbar.appendTo($discussbox);
 	$discussmsg.appendTo($discussbox);
@@ -68,15 +99,26 @@ $afei.discuss = function (field, $scope, $compile) {
 			return;
         }
 		sendmsg($scope.srtxt);
+		$scope.srtxt = '';
+		$scope.$applyAsync();
 		e.stopPropagation();
 	})
 
 
 	function sendmsg(msg) {
-		console.log(msg);
+		if (!msg || msg == '') {
+			layer.msg('请勿输入空值');
+		}
+		$afei.post('/home/sendmsg', { field: field, msg: msg }).then(res => {
+			layer.msg(res, { time: '500' });
+			var cnt = parseInt($discuss.text()) + 1;
+			$discuss.text(cnt);
+			page = 1;
+			$scope.msgs = [];
+			getdismsgs();
+		});
     }
 	var page = 1;//页码
-	var cnts = 0;//总数
 	var flag = true;
 	$scope.msgs = [];
 	//获取所有评论数和最新的一百条
@@ -88,6 +130,7 @@ $afei.discuss = function (field, $scope, $compile) {
 	function getdismsgs() {
 		$afei.post('/home/getdismsg', { field: field, page: page }).then(res => {
 			$scope.msgs.push(res);
+			$scope.$applyAsync();
 			console.log(res);
 		})
     }
@@ -241,3 +284,12 @@ $afei.get = function (str, obj) {
 		})
 	})
 }
+
+$afei.logincheck = function () {
+	$afei.post('/home/logincheck').then(res => {
+		if (res == "logining") {
+			$.cookie('afeitool_login',res);
+		}
+	})
+}
+$afei.logincheck();
