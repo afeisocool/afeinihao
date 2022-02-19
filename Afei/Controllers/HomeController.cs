@@ -1,5 +1,6 @@
 ﻿using AfeiLib;
 using AfeiModel;
+using AfeiModel.Dto;
 using AfeiModel.Entity;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,36 @@ namespace Afei.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpPost]
+        public string logincheck()
+        {
+            var ck = HttpContext.Request.Cookies["afeitool_tokens"] == null ? null : HttpContext.Request.Cookies["afeitool_tokens"].Value;
+            var logins = ck == null ? null : ck.Md5_Decrypt().ToObject<loginDto>();
+            if (logins==null)
+            {
+                return "notlogin".Tojson();
+            }
+            else if(DateTime.Now< logins.edt)
+            {
+                return "logining".Tojson();
+            }
+            else
+            {
+                return "outdate".Tojson();
+            }
+        }
+        [HttpPost]
+        public string getdismsg(string field,string page)
+        {
+            var list = ToDB.Getdblist<replyDto>(string.Format("exec get_discuss_page '{0}','{1}'",field,page));
+            return list.Tojson();
+        }
+        [HttpPost]
+        public string getdiscnt(string field)
+        {
+            var cnt = ToDB.Getdblist<replyEntity>("select * from reply where field = '" + field + "'").Count();
+            return cnt.ToString();
+        }
         // GET: Home
         public ActionResult Index()
         {

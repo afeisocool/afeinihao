@@ -1,6 +1,6 @@
 ﻿angular.module('app', []).controller('app', ['$scope', '$compile', function ($scope, $compile) {
 	$scope.origintype = '10';
-	$scope.originvals = '123';
+	$scope.originvals = '1';
 	$scope.typearr = [];
 	for (var i = 2; i <= 36; i++) {
 		$scope.typearr.push(i);
@@ -30,7 +30,7 @@
 			}
 		});
 	}
-	$afei.discuss('binary_conversion');
+	$afei.discuss('binary_conversion',$scope,$compile);
 	
 
 

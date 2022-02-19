@@ -4,9 +4,93 @@ $afei.menustate = [
 	{cd: '1',nm: '勉强能用上了'},
 	{cd: '2',nm: 'bug影响使用'},
 ]
-$afei.discuss = function (url) {
+
+$afei.logincheck = function () {
+	$afei.post('/home/logincheck').then(res => {
+		$.cookie('afeitool_login', res == 'null' ? '' : res);
+	})
+}
+$afei.tologin = function () {
+	$(".loginbox").remove();
+	var $loginbox = $("<div class='loginbox'></div>");
+	var $loginclose = $("<div class='loginclose'></div>");
+	var $loginclosespan = $("<div class='loginclosespan cps'>×</div>");
+	var $loginnm = $("<input type='text' class='loginnm' placeholder='账号' />");
+	var $loginpwd = $("<input type='password' class='loginpwd' placeholder='密码' />");
+	var $loginbtn = $("<div class='loginbtn cps'>登录</div>");
+	var $loginregister = $("<div class='loginregister cps'>注册</div>");
+	$loginbox.appendTo($("body"));
+	$loginclose.appendTo($loginbox);
+	$loginclosespan.appendTo($loginclose);
+	$loginnm.appendTo($loginbox);
+	$loginpwd.appendTo($loginbox);
+	$loginbtn.appendTo($loginbox);
+	$loginregister.appendTo($loginbox);
+
+	//close
+
+
+}
+$afei.discuss = function (field, $scope, $compile) {
+	$scope.srtxt = '';
 	var $discuss = $("<div class='discuss'></div>");
+	var $discussbox = $("<div class='discussbox'></div>");
+	var $discussbar = $("<div class='discussbar'></div>");
+	var $discussmsg = $("<div class='discussmsg'></div>");
+	var $discussinput = $("<div class='discussinput'></div>");
+	var $discussinputbox = $("<input class='discussinputbox' type='text' placeholder='说些什么……' ng-model='srtxt' />");
+	var $discussbtn = $("<div class='discussbtn'>发送</div>");
+	$discussinput.appendTo($discussbox);
+	$discussbar.appendTo($discussbox);
+	$discussmsg.appendTo($discussbox);
+	$discussinputbox.appendTo($discussinput);
+	$discussbtn.appendTo($discussinput);
 	$discuss.appendTo($("#body"));
+	$discussbox.appendTo($("#body"));
+	$compile($discussbox)($scope);
+	$discuss.click(function (e) {
+		$discussbox.addClass('show');
+		$("body").addClass('divstop');
+		e.stopPropagation();
+	})
+	$discussbar.click(function (e) {
+		$discussbox.removeClass('show');
+		$("body").removeClass('divstop');
+		e.stopPropagation();
+	})
+	$discussbtn.click(function (e) {
+		var login = $.cookie('afeitool_login');
+		if (login!='logining') {
+			layer.msg('未登录', {time:900});
+			setTimeout(function () {
+				$afei.tologin();
+			}, 1000)
+			return;
+        }
+		sendmsg($scope.srtxt);
+		e.stopPropagation();
+	})
+
+
+	function sendmsg(msg) {
+		console.log(msg);
+    }
+	var page = 1;//页码
+	var cnts = 0;//总数
+	var flag = true;
+	$scope.msgs = [];
+	//获取所有评论数和最新的一百条
+	$afei.post('/home/getdiscnt', { field: field }).then(res => {
+		cnt = res;
+		$discuss.text(cnt);
+	})
+	getdismsgs();
+	function getdismsgs() {
+		$afei.post('/home/getdismsg', { field: field, page: page }).then(res => {
+			$scope.msgs.push(res);
+			console.log(res);
+		})
+    }
 }
 $.extend({
 	cps: function (item) {

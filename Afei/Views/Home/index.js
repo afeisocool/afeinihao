@@ -1,4 +1,7 @@
 ﻿angular.module('app', []).controller('app', ['$scope', '$compile', function ($scope, $compile) {
+	$afei.logincheck();
+
+
 	$scope.menustate = $afei.menustate;
 	$scope.viewstate = '';
 	$scope.menuitem;
