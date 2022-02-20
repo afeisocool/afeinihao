@@ -21,6 +21,8 @@
 
 
 
+	//加载评论功能
+	$afei.discuss('history', $scope, $compile);
 
 
 

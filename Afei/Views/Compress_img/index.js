@@ -155,6 +155,8 @@
 
 
 
+	//加载评论功能
+	$afei.discuss('compress_img', $scope, $compile);
 
 
 

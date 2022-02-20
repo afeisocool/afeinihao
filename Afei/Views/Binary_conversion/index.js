@@ -30,6 +30,7 @@
 			}
 		});
 	}
+	//加载评论功能
 	$afei.discuss('binary_conversion',$scope,$compile);
 	
 

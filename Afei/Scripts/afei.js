@@ -4,7 +4,33 @@ $afei.menustate = [
 	{cd: '1',nm: '勉强能用上了'},
 	{cd: '2',nm: 'bug影响使用'},
 ]
-
+$afei.redate = function (date) {
+	var dt = new Date(date).getTime();
+	var now = new Date().getTime();
+	var span = (now - dt) / 1000;
+	var fh = '秒前';
+	if (span < 60) {
+		return parseInt(span) + fh;
+	}
+	span = span / 60
+	fh = '分前';
+	if (span < 60) {
+		return parseInt(span) + fh;
+	}
+	span = span / 60
+	fh = '小时前';
+	if (span < 24) {
+		return parseInt(span) + fh;
+	}
+	span = span / 24
+	fh = '天前';
+	if (span < 12) {
+		return parseInt(span) + fh;
+	}
+	span = span / 12
+	fh = '年前';
+	return parseInt(span) + fh;
+}
 $afei.tologin = function () {
 	$(".loginbox").remove();
 	var $loginbox = $("<div class='loginbox'></div>");
@@ -51,6 +77,7 @@ $afei.tologin = function () {
 }
 $afei.discuss = function (field, $scope, $compile) {
 	$scope.srtxt = '';
+	$scope.cnts = 0;
 	var $discuss = $("<div class='discuss'></div>");
 	var $discussbox = $("<div class='discussbox'></div>");
 	var $discussbar = $("<div class='discussbar'></div>");
@@ -61,16 +88,18 @@ $afei.discuss = function (field, $scope, $compile) {
 	var $msgs = $(
 		"<div class='dismsgbox' ng-repeat='item in msgs'>" +
 			"<div class='dismsghdnm'>"+
-				"<div class='dismsghn' style='background-image:url(/Content/up/{{item.userhd}})'></div>"+
+				"<div class='dismsghd' style='background-image:url(/Content/up/{{item.userhd}})'></div>"+
 				"<div class='dismsgnm'>{{item.usernm}}</div>"+
 			"</div>"+
 			"<div class='dismsgtxts'>"+
 			"<span class='dismsgtxt'>{{item.msg}}</span>"+
-			"<span class='dismsgcrt'>{{item.crtdt}}</span>"+
+			"<span class='dismsgcrt'>-{{item.crtdt}}</span>"+
 			"</div>"+
 		"</div>"
 	)
+	var $dismsgbtn = $("<div class='dismsgbtn cps'>加载更多</div>");
 	$msgs.appendTo($discussmsg);
+	$dismsgbtn.appendTo($discussmsg);
 	$discussinput.appendTo($discussbox);
 	$discussbar.appendTo($discussbox);
 	$discussmsg.appendTo($discussbox);
@@ -103,16 +132,43 @@ $afei.discuss = function (field, $scope, $compile) {
 		$scope.$applyAsync();
 		e.stopPropagation();
 	})
-
-
+	$scope.loadflag = true;
+	$discussmsg.scroll(function (e) {
+		var $that = $(this);
+		var sh = $that[0].scrollHeight;
+		var st = $that[0].scrollTop;
+		var ht = $that[0].offsetHeight;
+		if ($scope.loadflag && st + ht == sh) {
+			loadmore();
+        }
+	})
+	$dismsgbtn.click(function (e) {
+		loadmore();
+		e.stopPropagation();
+	})
+	function loadmore() {
+		$scope.loadflag = false;
+		setTimeout(function () {
+			$scope.loadflag = true;
+		}, 1000)
+		if (page * 10 < $scope.cnts) {
+			layer.msg('加载更多', { time: 500 });
+			page = page + 1;
+			getdismsgs();
+		} else {
+			$dismsgbtn.text("到底了哦");
+			layer.msg('到底了噢', {time:500});
+        }
+    }
 	function sendmsg(msg) {
 		if (!msg || msg == '') {
 			layer.msg('请勿输入空值');
+			return;
 		}
 		$afei.post('/home/sendmsg', { field: field, msg: msg }).then(res => {
 			layer.msg(res, { time: '500' });
-			var cnt = parseInt($discuss.text()) + 1;
-			$discuss.text(cnt);
+			$scope.cnts = $scope.cnts + 1;
+			$discuss.text($scope.cnts)
 			page = 1;
 			$scope.msgs = [];
 			getdismsgs();
@@ -121,17 +177,24 @@ $afei.discuss = function (field, $scope, $compile) {
 	var page = 1;//页码
 	var flag = true;
 	$scope.msgs = [];
-	//获取所有评论数和最新的一百条
-	$afei.post('/home/getdiscnt', { field: field }).then(res => {
-		cnt = res;
-		$discuss.text(cnt);
-	})
+
+	getcnts();
+	function getcnts() {
+		//获取评论总数
+		$afei.post('/home/getdiscnt', { field: field }).then(res => {
+			$scope.cnts = res;
+			$discuss.text($scope.cnts);
+			$scope.$applyAsync();
+		})
+    }
 	getdismsgs();
 	function getdismsgs() {
 		$afei.post('/home/getdismsg', { field: field, page: page }).then(res => {
-			$scope.msgs.push(res);
+			res.forEach(item => {
+				item.crtdt = $afei.redate(item.crtdt);
+				$scope.msgs.push(item);
+			})
 			$scope.$applyAsync();
-			console.log(res);
 		})
     }
 }
@@ -292,4 +355,3 @@ $afei.logincheck = function () {
 		}
 	})
 }
-$afei.logincheck();

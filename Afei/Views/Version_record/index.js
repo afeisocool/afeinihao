@@ -16,8 +16,11 @@
 
 
 
+    //加载评论功能
+    $afei.discuss('version_record', $scope, $compile);
 
-
+    //登录检测
+    $afei.logincheck();
 
 
 
