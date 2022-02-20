@@ -156,6 +156,7 @@
     <Content Include="Content\icon.png" />
     <Content Include="Content\imgs\bgimg.jpg" />
     <Content Include="Content\imgs\bilibili.png" />
+    <Content Include="Content\imgs\discuss.png" />
     <Content Include="Content\imgs\github.png" />
     <Content Include="Content\imgs\icon_advanced_calculator.png" />
     <Content Include="Content\imgs\icon_airdrop.png" />
