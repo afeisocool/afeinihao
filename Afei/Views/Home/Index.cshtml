@@ -29,6 +29,7 @@
         </div>
         <div id="view">
             <iframe id="iframe" ng-src="{{menuitem.areaurl}}"></iframe>
+            <div class="loadmask load-0" ng-show="!loadflag"></div>
         </div>
     </div>
     <div id="history">
@@ -43,9 +44,7 @@
             <span>帮助</span>
             <div class="lybox">
                 <a class="atxt flexcc" title="(๑•̀ㅂ•́)و✧">皮肤</a>
-                <a class="atxt flexcc">设置</a>
-                <a class="atxt flexcc">登录</a>
-                <a class="atxt flexcc">阿飞</a>
+                <a class="atxt flexcc" ng-click="tologin()">登录</a>
             </div>
         </div>
         <span>丨</span>
@@ -63,6 +62,13 @@
                 </a>
             </div>
         </div>
+    </div>
+    <div id="usershow" ng-show="usershow">
+        <img id="userhead" class="cps" src="~/Content/up/0.hd.png" ng-src="/Content/up/{{user.userhd}}" ng-click="userhead()" />
+        <input type="text" id="usertext" placeholder="昵称" ng-model="user.usernm" />
+        <input type="file" id="upimg" class="tohidden" accept="image/*" />
+        <div id="usersave" class='cps' ng-click="usersave()">保存</div>
+        <div id="userexit" class='cps' ng-click="userexit()">退出</div>
     </div>
 </body>
 </html>

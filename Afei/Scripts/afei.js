@@ -31,7 +31,7 @@ $afei.redate = function (date) {
 	fh = '年前';
 	return parseInt(span) + fh;
 }
-$afei.tologin = function () {
+$afei.tologin = function (func) {
 	$(".loginbox").remove();
 	var $loginbox = $("<div class='loginbox'></div>");
 	var $loginclose = $("<div class='loginclose'></div>");
@@ -60,6 +60,9 @@ $afei.tologin = function () {
 			layer.msg(res);
             if (res=="登录成功") {
 				$loginclosespan.click();
+				if (func) {
+					func();
+                }
             }
 		})
 
@@ -290,15 +293,25 @@ $.prototype.ars = function () {
 	}
 	return arr;
 }
-$.prototype.upimg = function (func) {
+$.prototype.upimg = function (func1,func2) {
 	var $that = this;
 	//绑定change事件用来获取选中的值
 	$that.change(function () {
 		var fds = new FormData();
 		var files = $(this)[0].files;
-		var file = files[0];
-		if (file) {
-			func(file);
+		var item = files[0];
+		var ars = item.name.split('.');
+		var fnm = new Date().getTime() + '.' + ars[ars.length - 1];
+		fds.append(fnm, item);
+		if (func1) {
+			func1(fds);
+		}
+		if (func2) {
+			var reader = new FileReader();
+			reader.readAsDataURL(item);
+			reader.onload = function (e) {
+				func2(e.target.result);
+			}
         }
 		//清空内容
 		$(this).val('');
@@ -330,6 +343,25 @@ $afei.post = function (str, obj) {
 		})
 	})
 }
+$afei.postfile = function (str, obj) {
+	return new Promise((resolve, reject) => {
+		$.ajax({
+			type: 'post',
+			url: str,
+			data: obj,
+			dataType: 'json',
+			processData: false,
+			contentType: false,
+			async: true,
+			success: res => {
+				resolve(res);
+			},
+			error: res => {
+				reject(res);
+			}
+		})
+	})
+}
 $afei.get = function (str, obj) {
 	return new Promise((resolve, reject) => {
 		$.ajax({
@@ -348,7 +380,7 @@ $afei.get = function (str, obj) {
 	})
 }
 
-$afei.logincheck = function () {
+$afei.logincheck = function (func) {
 	$afei.post('/home/logincheck').then(res => {
 		if (res == "logining") {
 			$.cookie('afeitool_login',res);

@@ -76,5 +76,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AfeiModel\AfeiModel.csproj">
+      <Project>{AA2377CF-5729-4894-8C36-C86D7C7E5D64}</Project>
+      <Name>AfeiModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

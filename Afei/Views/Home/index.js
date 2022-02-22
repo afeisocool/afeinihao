@@ -1,7 +1,5 @@
 ﻿angular.module('app', []).controller('app', ['$scope', '$compile', function ($scope, $compile) {
 	$afei.logincheck();
-
-
 	$scope.menustate = $afei.menustate;
 	$scope.viewstate = '';
 	$scope.menuitem;
@@ -25,17 +23,21 @@
 	}
 	//菜单切换的时候，替换iframe里面的界面
 	//加载页句柄
-	var $load;
+	$scope.loadflag;
 	$scope.$watch('menuitem', function (n) {
 		if (n) {
-			
+			$scope.loadflag = false;
+			$scope.$applyAsync();
+			console.log(n);
 		} else {
 
 		}
 	})
 	//监控页面加载
 	$("#iframe")[0].onload = function () {
-		
+		$scope.loadflag = true;
+		$scope.$applyAsync();
+		console.log("加载成功");
 	}
 	//历史上的今天
 	gethistory();
@@ -73,7 +75,52 @@
 			$first.removeClass('totop');
 		}, 250)
 	}
+	//登录信息
+	getlogin();
+	function getlogin() {
+		$afei.post('/home/getlogin').then(res => {
+			$scope.user = res;
+			$scope.$applyAsync();
+			console.log(res);
+		})
+	}
+	//登录
+	$scope.tologin = function () {
+		if (!$scope.user) {
+			$afei.tologin(function () {
+				$scope.user = true;
+				getlogin();
+			});
+		} else {
+			$scope.usershow = true;
+			$scope.$applyAsync();
+        }
+	}
+	$scope.userhead = function () {
+		$("#upimg").click();
+	}
+	var headfd;//缓存的fd
+	$("#upimg").upimg(function (fd) {
+		headfd = fd;
+	}, function (base64) {
+		$("#userhead").attr('src', base64);
+	})
 
+	$scope.usersave = function () {
+		if (headfd) {
+			$afei.postfile('/home/savehd', headfd).then(res => {
+				layer.msg(res, { time: 500 });
+				headfd = null;
+			})
+		}
+		$afei.post('/home/saveuser', $scope.user).then(res => {
+			layer.msg(res, { time: 500 });
+		})
+	}
+	$scope.userexit = function () {
+		$scope.usershow = false;
+		$scope.$applyAsync();
+	}
 
 
 

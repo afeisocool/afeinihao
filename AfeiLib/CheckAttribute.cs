@@ -12,6 +12,9 @@ namespace AfeiLib
     /// </summary>
     public class CheckAttribute : ActionFilterAttribute
     {
-
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            
+        }
     }
 }

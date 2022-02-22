@@ -16,12 +16,44 @@ namespace Afei.Controllers
     public class HomeController : Controller
     {
         [HttpPost]
+        public string Saveuser(userEntity user)
+        {
+            var sql = string.Format("update users set usernm ='{0}' where usercd='{1}'",user.usernm,user.usercd);
+            ToDB.Select(sql);
+            return "改名成功".Tojson();
+        }
+        [HttpPost]
+        public string Savehd()
+        {
+            var usercd = NetworkHelper.GetUsercd();
+            var files = HttpContext.Request.Files;
+            var file = files[files.AllKeys[0]];
+            var path = HttpContext.Server.MapPath("/Content/up/" + usercd + ".head.png");
+            var sql = string.Format("update users set userhd='{0}' where usercd='{1}'", usercd+".head.png",usercd);
+            ToDB.Select(sql);
+            file.SaveAs(path);
+            return "头像保存成功".Tojson();
+        }
+        [HttpPost]
+        public string GetLogin()
+        {
+            var entity = NetworkHelper.GetLogin();
+            return entity.Tojson();
+        }
+        [HttpPost]
         public string sendmsg(string field,string msg)
         {
-            var usercd = Session["usercd"].ToString();
-            string sql = string.Format("insert into reply(field,usercd,msg)values('{0}','{1}','{2}')",field,usercd,msg);
-            ToDB.Select(sql);
-            return "发送成功".Tojson();
+            var usercd = NetworkHelper.GetUsercd();
+            if (usercd!=null)
+            {
+                string sql = string.Format("insert into reply(field,usercd,msg)values('{0}','{1}','{2}')", field, usercd, msg);
+                ToDB.Select(sql);
+                return "发送成功".Tojson();
+            }
+            else
+            {
+                return "未登录".Tojson();
+            }
         }
         [HttpPost]
         public string register(string usernm, string userpwd) 
@@ -66,7 +98,6 @@ namespace Afei.Controllers
 
                 HttpContext.Response.AppendCookie(hk);
                 HttpContext.Response.AppendCookie(hk2);
-                Session["usercd"] = entity.usercd;
                 return "登录成功".Tojson();
             }
         }

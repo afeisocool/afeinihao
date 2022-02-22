@@ -27,6 +27,7 @@
     opacity: 0;
     transition: 0.25s;
     pointer-events:none;
+    background-color:rgba(0,0,0,.8);
 }
 
 .lybox::after {
@@ -342,3 +343,95 @@ a,
     align-items: center;
     position: relative;
 }
+
+#usershow {
+    position: fixed;
+    top: calc(50% - 200px);
+    bottom: calc(50% - 200px);
+    left: calc(50% - 150px);
+    right: calc(50% - 150px);
+    z-index: 999;
+    background-color: #2c3e50;
+}
+
+
+
+#userhead {
+    position: absolute;
+    top: 50px;
+    left: calc(50% - 50px);
+    right: calc(50% - 50px);
+    height: 100px;
+    outline: 1px solid lightgray;
+    border-radius: 50%;
+    width:100px!important;
+    height:100px!important;
+}
+
+#usertext {
+    border: none;
+    background-color: transparent !important;
+    /*outline: 1px solid lightgray;*/
+    position: absolute;
+    bottom: 160px;
+    font-size: 20px;
+    left: 5px;
+    right: 5px;
+    height: 30px;
+    width: calc(100% - 10px);
+    text-align: center;
+    outline: none;
+}
+
+    #usertext::placeholder {
+        color: gray;
+    }
+
+    #usertext:active {
+        outline: 1px solid lightgray;
+    }
+
+#usersave {
+    outline: 1px solid lightgray;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 40px;
+    left: 5px;
+    right: 5px;
+    height: 30px;
+}
+
+#userexit {
+    outline: 1px solid lightgray;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    height: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

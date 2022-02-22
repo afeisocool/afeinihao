@@ -41,6 +41,11 @@ body {
     right:0;
     background-repeat:no-repeat;
     background-position:center center;
+    z-index:999;
+    background-color:rgba(0,0,0,0.3);
+    background-size:48px auto;
+    background-repeat:no-repeat;
+    background-position:center center;
 }
 .loadmask.load-0{
     background-image:url(../Content/loading-0.gif);
@@ -272,6 +277,17 @@ body {
     outline:1px solid lightgray;
 }
 
+.tohidden{
+    display:none;
+}
+.tohide{
+    outline:none;
+    border:none;
+    background-color:transparent;
+    overflow:hidden;
+    width:0;
+    height:0;
+}
 
 
 
