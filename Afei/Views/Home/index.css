@@ -167,6 +167,9 @@
 .icon_history {
     background-image: url(../../Content/imgs/icon_history.png);
 }
+.icon_fundtool {
+    background-image: url(../../Content/imgs/icon_fundtool.png);
+}
 .menuitem {
     outline: 1px solid lightgray;
     float: left;

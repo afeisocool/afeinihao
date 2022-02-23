@@ -387,3 +387,8 @@ $afei.logincheck = function (func) {
 		}
 	})
 }
+function jiemi(str,key) {
+	$afei.post('/home/jiemi', { str: str, key: key }).then(res => {
+		console.log(res);
+	})
+}

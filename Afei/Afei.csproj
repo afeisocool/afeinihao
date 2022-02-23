@@ -142,6 +142,7 @@
     <Compile Include="Controllers\Binary_conversionController.cs" />
     <Compile Include="Controllers\Compress_imgController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FundtoolController.cs" />
     <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Version_recordController.cs" />
@@ -157,6 +158,7 @@
     <Content Include="Content\imgs\bgimg.jpg" />
     <Content Include="Content\imgs\bilibili.png" />
     <Content Include="Content\imgs\discuss.png" />
+    <Content Include="Content\imgs\icon_fundtool.png" />
     <Content Include="Content\imgs\github.png" />
     <Content Include="Content\imgs\icon_advanced_calculator.png" />
     <Content Include="Content\imgs\icon_airdrop.png" />
@@ -215,6 +217,8 @@
     <Content Include="Views\Compress_img\index.js" />
     <Content Include="Views\Error\index.css" />
     <Content Include="Views\Error\index.js" />
+    <Content Include="Views\Fundtool\index.css" />
+    <Content Include="Views\Fundtool\index.js" />
     <Content Include="Views\History\index.css" />
     <Content Include="Views\History\index.js" />
     <Content Include="Views\Home\index.css" />
@@ -247,6 +251,7 @@
     <Content Include="Views\History\Index.cshtml" />
     <Content Include="Views\Compress_img\Index.cshtml" />
     <Content Include="Views\Binary_conversion\Index.cshtml" />
+    <Content Include="Views\Fundtool\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AfeiLib\AfeiLib.csproj">

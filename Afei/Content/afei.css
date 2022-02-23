@@ -251,6 +251,7 @@ body {
     justify-content:center;
     align-items:center;
     word-break:break-all;
+    color:black!important;
 }
 .dismsgstxts {
     width: calc(100% - 50px);

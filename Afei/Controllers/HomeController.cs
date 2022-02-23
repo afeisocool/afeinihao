@@ -16,6 +16,20 @@ namespace Afei.Controllers
     public class HomeController : Controller
     {
         [HttpPost]
+        public string Jiemi(string str,string key = "mcitloft")
+        {
+            try
+            {
+                var res = str.Md5_Decrypt(key).ToString();
+                return res.Tojson();
+            }
+            catch (Exception e)
+            {
+                return e.Message.Tojson();
+            }
+        }
+
+        [HttpPost]
         public string Saveuser(userEntity user)
         {
             var sql = string.Format("update users set usernm ='{0}' where usercd='{1}'",user.usernm,user.usercd);
